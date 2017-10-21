@@ -36,7 +36,21 @@ import elementUI from 'element-ui';
 import '../statics/theme_rms/index.css';
 import '../statics/css/site.css';
 Vue.use(elementUI);
-
+Vue.filter('datafmt', (input, fmtstring) => {
+    var mydate = new Date(input);
+    var y = mydate.getFullYear();
+    var m = mydate.getMonth() + 1;
+    var d = mydate.getDate();
+    var h = mydate.getHours();
+    var mi = mydate.getMinutes();
+    var s = mydate.getSeconds();
+    if (fmtstring == 'YYYY-MM-DD') {
+        return y + "-" + m + "-" + d;
+    };
+    if (fmtstring == 'YYYY-MM-DD HH:MM:SS') {
+        return y + "-" + m + "-" + d + " " + h + ":" + mi + ":" + s;
+    };
+})
 new Vue({
     el: '#app',
     router,
