@@ -1,0 +1,24 @@
+<template>
+    <div class="tmpl">
+    <router-view></router-view>
+    </div>
+</template>
+
+<script>
+    export default {
+        data() {
+            return {
+                name: "hello"
+            }
+        },
+        methods: {
+
+        }
+    }
+</script>
+
+<style>
+    .tmpl {
+        color: red;
+    }
+</style>
