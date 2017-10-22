@@ -18,7 +18,5 @@
 </script>
 
 <style>
-    .tmpl {
-        color: red;
-    }
+
 </style>

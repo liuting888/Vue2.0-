@@ -11,7 +11,7 @@ Vue.use(vueRouter);
 import login from './components/admin/account/login.vue';
 import layout from './components/admin/layout.vue';
 import goodslist from './components/admin/goods/goodslist.vue';
-
+import goodsadd from './components/admin/goods/goodsadd.vue';
 var router = new vueRouter({
     routes: [
         { name: 'default', path: '/', redirect: '/admin' },
@@ -21,7 +21,8 @@ var router = new vueRouter({
             path: '/admin',
             component: layout,
             children: [
-                { name: 'goodslist', path: 'goodslist', component: goodslist }
+                { name: 'goodslist', path: 'goodslist', component: goodslist },
+                { name: 'goodsadd', path: 'goodsadd', component: goodsadd }
             ]
         },
     ]
@@ -30,6 +31,9 @@ import axios from 'axios';
 axios.defaults.baseURL = 'http://157.122.54.189:9095';
 Vue.prototype.$http = axios;
 Vue.use(axios);
+
+
+
 
 import elementUI from 'element-ui';
 // import 'element-ui/lib/theme-default/index.css';
@@ -50,7 +54,10 @@ Vue.filter('datafmt', (input, fmtstring) => {
     if (fmtstring == 'YYYY-MM-DD HH:MM:SS') {
         return y + "-" + m + "-" + d + " " + h + ":" + mi + ":" + s;
     };
-})
+});
+
+
+
 new Vue({
     el: '#app',
     router,

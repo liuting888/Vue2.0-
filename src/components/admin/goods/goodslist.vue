@@ -18,7 +18,9 @@
                 <el-col :span="5">
                     <!-- 新增，删除，全选按钮 -->
                     <el-button>全选</el-button>
-                    <el-button>新增</el-button>
+                    <router-link to="/admin/goodsadd">
+                           <el-button>新增</el-button>
+                    </router-link>
                     <el-button>删除</el-button>
                 </el-col>
                 <el-col :span="6" :offset="13">
