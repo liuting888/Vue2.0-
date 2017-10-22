@@ -31,7 +31,20 @@ import axios from 'axios';
 axios.defaults.baseURL = 'http://157.122.54.189:9095';
 Vue.prototype.$http = axios;
 Vue.use(axios);
-
+axios.defaults.withCredentials = true;
+router.beforeEach((to, from, next) => {
+    if (to.name == "login") {
+        next();
+    } else {
+        axios.get('/admin/account/islogin').then(res => {
+            if (res.data.code == "logined") {
+                next();
+            } else {
+                router.push({ name: "login" });
+            }
+        })
+    }
+})
 
 
 
