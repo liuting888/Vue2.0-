@@ -56,6 +56,12 @@
                 }
             };
         },
+        mounted() {
+            document.getElementsByTagName('body')[0].style.backgroundColor = "#0094ff";
+        },
+        beforeDestroy() {
+            document.getElementsByTagName('body')[0].style.backgroundColor = "white";
+        },
         methods: {
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {

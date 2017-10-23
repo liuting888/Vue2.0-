@@ -36,7 +36,7 @@
                 <el-table :data="list" max-height="400" style="width: 100%" :row-class-name="tableRowClassName" @selection-change="getrows">
                     <el-table-column type="selection" width="80">
                     </el-table-column>
-                    <el-table-column prop="title" label="标题1">
+                    <el-table-column prop="title" label="列表">
                         <template scope="scope">
                             <router-link v-bind="{to:'/admin/goodsedit/'+scope.row.id}">
                                 {{scope.row.title}}
@@ -66,7 +66,9 @@
 </el-table-column>
 <el-table-column label="操作" width="80">
     <template scope="scope">
+            <router-link v-bind="{to:'/admin/goodsedit/'+scope.row.id}">
                             <a href="#">修改</a>
+                        </router-link>
                         </template>
 </el-table-column>
 </el-table>

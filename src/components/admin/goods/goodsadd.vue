@@ -181,9 +181,9 @@
                         message: '请输入标题名称',
                         trigger: 'blur'
                     }, {
-                        min: 3,
-                        max: 8,
-                        message: '长度在 3 到 8 个字符',
+                        min: 2,
+                        max: 18,
+                        message: '长度在 2 到 18 个字符',
                         trigger: 'blur'
                     }],
                     goods_no: [{
@@ -237,7 +237,7 @@
                     // 如果表单的所有元素值均合法，valid则返回true
                     if (valid) {
                         // ajax提交数据进行新增操作
-                        this.$http.post('/admin/goods/add/goods', this.form)
+                        this.$http.post('/admin/goods/add/goods', this.ruleForm)
                             .then(res => {
                                 if (res.data.status == 1) {
                                     this.$message.error(res.data.message);

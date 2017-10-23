@@ -12,6 +12,7 @@ import login from './components/admin/account/login.vue';
 import layout from './components/admin/layout.vue';
 import goodslist from './components/admin/goods/goodslist.vue';
 import goodsadd from './components/admin/goods/goodsadd.vue';
+import goodsedit from './components/admin/goods/goodsedit.vue';
 var router = new vueRouter({
     routes: [
         { name: 'default', path: '/', redirect: '/admin' },
@@ -22,6 +23,7 @@ var router = new vueRouter({
             component: layout,
             children: [
                 { name: 'goodslist', path: 'goodslist', component: goodslist },
+                { name: 'goodsedit', path: 'goodsedit/:id', component: goodsedit },
                 { name: 'goodsadd', path: 'goodsadd', component: goodsadd }
             ]
         },
