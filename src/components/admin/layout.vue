@@ -4,7 +4,7 @@
   <el-col :span="leftcol">
                <img src="./../../../statics/imgs/logo.png" alt="" style="width:100%">
                 <div class="layout menu">
-                   <el-menu default-active="1-2" class="el-menu-vertical-demo" :collapse="iscollapse" >
+                   <el-menu default-active="this.$store.state.global.menuid" class="el-menu-vertical-demo" :collapse="iscollapse" >
                        <!--购物商城  -->
                     <el-submenu index="1">
                             <template slot="title"><i class="el-icon-message"></i>购物商城</template>
@@ -12,7 +12,9 @@
     <router-link to="/admin/goodslist">
         <el-menu-item index="1-1">内容管理</el-menu-item>
     </router-link>
-    <el-menu-item index="1-2">类别管理</el-menu-item>
+    <router-link to="/admin/catelist">
+        <el-menu-item index="1-2">类别管理</el-menu-item>
+    </router-link>
     <el-menu-item index="1-3">评论管理</el-menu-item>
 </el-menu-item-group>
 </el-submenu>
@@ -66,10 +68,17 @@
     export default {
         data() {
             return {
+                mid: '1-1',
                 iscollapse: false,
                 leftcol: 4,
                 rightcol: 20
             }
+        },
+        created() {
+            var currentRouteName = localStorage.getItem('mName');
+            this.$router.push({
+                name: currentRouteName
+            });
         },
         methods: {
             showhide() {

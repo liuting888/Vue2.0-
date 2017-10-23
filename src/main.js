@@ -8,11 +8,37 @@ import App from './App.vue';
 
 import vueRouter from 'vue-router';
 Vue.use(vueRouter);
+import vuex from 'vuex';
+Vue.use(vuex);
+const state = {
+    menuid: '1-1'
+};
+const actions = {
+    changeMenuID({ commit }, menuid) { commit('changeMenuID', menuid); }
+};
+const mutations = {
+    changeMenuID(state, menuid) {
+        state.menuid = menuid;
+    }
+};
+const getters = {};
+const store = new vuex.Store({
+    modules: {
+        global: {
+            state,
+            actions,
+            mutations,
+            getters
+        }
+    }
+});
+
 import login from './components/admin/account/login.vue';
 import layout from './components/admin/layout.vue';
 import goodslist from './components/admin/goods/goodslist.vue';
 import goodsadd from './components/admin/goods/goodsadd.vue';
 import goodsedit from './components/admin/goods/goodsedit.vue';
+import catelist from './components/admin/goods/catelist.vue';
 var router = new vueRouter({
     routes: [
         { name: 'default', path: '/', redirect: '/admin' },
@@ -22,8 +48,9 @@ var router = new vueRouter({
             path: '/admin',
             component: layout,
             children: [
-                { name: 'goodslist', path: 'goodslist', component: goodslist },
+                { name: 'goodslist', path: 'goodslist', component: goodslist, meta: { menuno: '1-1', ischangemenu: true } },
                 { name: 'goodsedit', path: 'goodsedit/:id', component: goodsedit },
+                { name: 'catelist', path: 'catelist', component: catelist, meta: { menuno: '1-2', ischangemenu: true } },
                 { name: 'goodsadd', path: 'goodsadd', component: goodsadd }
             ]
         },
@@ -35,6 +62,12 @@ Vue.prototype.$http = axios;
 Vue.use(axios);
 axios.defaults.withCredentials = true;
 router.beforeEach((to, from, next) => {
+    if (to.meta.ischangemenu) {
+        localStorage.setItem('mName', to.name);
+    }
+    if (to.meta.menuno) {
+        store.dispatch('changeMenuID', to.meta.menuno);
+    };
     if (to.name == "login") {
         next();
     } else {
@@ -46,8 +79,11 @@ router.beforeEach((to, from, next) => {
             }
         })
     }
-})
-
+});
+const menulist = {
+    '1-1': 'goodslist',
+    '1-2': 'catelist'
+};
 
 
 import elementUI from 'element-ui';
@@ -76,5 +112,6 @@ Vue.filter('datafmt', (input, fmtstring) => {
 new Vue({
     el: '#app',
     router,
+    store: store,
     render: create => create(App)
 });
