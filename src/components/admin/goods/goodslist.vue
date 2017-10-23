@@ -17,7 +17,7 @@
             <el-row>
                 <el-col :span="5">
                     <!-- 新增，删除，全选按钮 -->
-                    <el-button>全选</el-button>
+                    <el-button @click="selectAll">全选</el-button>
                     <router-link to="/admin/goodsadd">
                            <el-button>新增</el-button>
                     </router-link>
@@ -33,7 +33,7 @@
 
         <el-row>
             <el-col :span="24">
-                <el-table :data="list" max-height="400" style="width: 100%" :row-class-name="tableRowClassName" @selection-change="getrows">
+                <el-table :data="list" max-height="400" style="width: 100%" :row-class-name="tableRowClassName" ref="multipleTable" @selection-change="getrows">
                     <el-table-column type="selection" width="80">
                     </el-table-column>
                     <el-table-column prop="title" label="列表">
@@ -101,6 +101,16 @@
             this.getlist();
         },
         methods: {
+            selectAll() {
+                var rows = this.list;
+                if (rows) {
+                    rows.forEach(row => {
+                        this.$refs.multipleTable.toggleRowSelection(row);
+                    });
+                } else {
+                    this.$refs.multipleTable.clearSelection();
+                }
+            },
             deldata() {
                 if (this.ids.length <= 0) {
                     this.$message.error('请勾选你要删除的数据');
