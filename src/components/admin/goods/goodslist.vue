@@ -21,7 +21,7 @@
                     <router-link to="/admin/goodsadd">
                            <el-button>新增</el-button>
                     </router-link>
-                    <el-button>删除</el-button>
+                    <el-button @click="deldata">删除</el-button>
                 </el-col>
                 <el-col :span="6" :offset="13">
                     <!-- 搜索框 -->
@@ -101,6 +101,28 @@
             this.getlist();
         },
         methods: {
+            deldata() {
+                if (this.ids.length <= 0) {
+                    this.$message.error('请勾选你要删除的数据');
+                    return;
+                } else {
+                    this.$confirm('您确认要删除数据吗?', '删除提示', {
+                        confirmButtonText: '确定',
+                        cancelButtonText: '取消',
+                        type: 'warning'
+                    }).then(() => {
+                        this.$http.get('/admin/goods/del/' + this.ids).then(
+                            res => {
+                                if (res.data.status == 1) {
+                                    this.$message.error(res.data.message);
+                                    return;
+                                };
+                                this.getlist();
+                            }
+                        )
+                    }).catch(() => {});
+                }
+            },
             sizeChange(currentSize) {
                 this.pageSize = currentSize;
                 this.getlist();
